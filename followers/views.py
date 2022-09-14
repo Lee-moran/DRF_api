@@ -3,20 +3,28 @@ from django_api.permissions import IsOwnerOrReadOnly
 from .models import Follower
 from .serializers import FollowerSerializer
 
-class FollowerList(generics.ListCreateAPIView):
-    """ List all Follower. Create a Follower if authenticated. The perform_create method associates the Follower with the logged in user. """
 
+class FollowerList(generics.ListCreateAPIView):
+    """
+    List all followers, i.e. all instances of a user
+    following another user'.
+    Create a follower, i.e. follow a user if logged in.
+    Perform_create: associate the current logged in user with a follower.
+    """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    serializer_class = FollowerSerializer
     queryset = Follower.objects.all()
-    
+    serializer_class = FollowerSerializer
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class FollowerDetail(generics.RetrieveDestroyAPIView):
-    """ Retrieve a Follower. No Update view, as users can only Follower or unlike a post. Destroy a Follower, i.e. unFollowe a post if owner of that like """
 
+class FollowerDetail(generics.RetrieveDestroyAPIView):
+    """
+    Retrieve a follower
+    No Update view, as we either follow or unfollow users
+    Destroy a follower, i.e. unfollow someone if owner
+    """
     permission_classes = [IsOwnerOrReadOnly]
     queryset = Follower.objects.all()
     serializer_class = FollowerSerializer
-
