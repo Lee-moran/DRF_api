@@ -1,8 +1,8 @@
 from rest_framework import generics, permissions
-from django_api.permissions import IsOwnerOrReadOnly
+from django_filters.rest_framework import DjangoFilterBackend
+from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class CommentList(generics.ListCreateAPIView):
