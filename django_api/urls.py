@@ -18,6 +18,7 @@ from django.urls import path, include
 from .views import root_route, logout_route
 
 urlpatterns = [
+    path('', root_route),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
      # our logout route has to be above the default one to be matched first
@@ -29,5 +30,4 @@ urlpatterns = [
     path('', include('comments.urls')),
     path('', include('likes.urls')),
     path('', include('followers.urls')),
-    path('', root_route)
 ]
