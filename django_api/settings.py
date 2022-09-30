@@ -9,8 +9,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
 import re
+import dj_database_url
 
 if os.path.exists('env.py'):
     import env
@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
-        if 'DEV' in os.environ
+        if "DEV" in os.environ
         else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
     'DEFAULT_PAGINATION_CLASS':
@@ -34,10 +34,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DATETIME_FORMAT': '%d %b %Y',
 }
-if 'DEV' not in os.environ:
+if "DEV" not in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
+
 
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
